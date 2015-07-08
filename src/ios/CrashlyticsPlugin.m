@@ -1,4 +1,6 @@
+#import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+
 
 #import "CrashlyticsPlugin.h"
 
@@ -15,14 +17,9 @@
 - (void)pluginInitialize {
     [super pluginInitialize];
 
-    NSDictionary *settings = self.commandDelegate.settings;
-    NSString *apiKey = settings[@"crashlytics_api_key"];
+    [Fabric with:@[CrashlyticsKit]];
 
-    if (apiKey == nil) {
-        [NSException raise:@"CrashlyticsPlugin error!" format:@"No API Key configured"];
-    }
-
-    self.crashlytics = [Crashlytics startWithAPIKey:apiKey];
+    self.crashlytics = [Crashlytics sharedInstance];
 }
 
 - (void)logException:(CDVInvokedUrlCommand *)command {

@@ -75,10 +75,32 @@
 
         <preference name="CRASHLYTICS_API_KEY" value="$CRASHLYTICS_API_KEY"/>
       </config-file>
+
+
         <header-file src="src/ios/CrashlyticsPlugin.h" />
         <source-file src="src/ios/CrashlyticsPlugin.m" />
 
+        <framework src="libc++.dylib" />
+        <framework src="libs/ios/Fabric.framework" custom="true" />
         <framework src="libs/ios/Crashlytics.framework" custom="true" />
+
+
+        <config-file target="*-Info.plist" parent="Fabric">
+            <key>Fabric</key>
+            <dict>
+                    <key>APIKey</key>
+                    <string>$CRASHLYTICS_API_KEY</string>
+                    <key>Kits</key>
+                    <array>
+                            <dict>
+                                    <key>KitInfo</key>
+                                    <dict/>
+                                    <key>KitName</key>
+                                    <string>Crashlytics</string>
+                            </dict>
+                    </array>
+            </dict>
+        </config-file>
     </platform>
 
     <hook type="after_plugin_install" src="hooks/after_plugin_install.js" />

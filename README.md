@@ -1,11 +1,11 @@
 # org.apache.cordova.crashlytics
 
-This plugin provides a bridge between javascript error handling and [Crashlytics](https://www.crashlytics.com/) serverside
+This plugin provides a bridge between javascript error handling and [Fabric Crashlytics](https://www.fabric.io/) serverside
 client API.
 
 ## Installation
 
-    cordova plugin add https://github.com/4sh-projects/cordova-crashlytics-plugin --variable CRASHLYTICS_API_SECRET=<YOUR CRASHLYTICS API SECRET HERE> --variable CRASHLYTICS_API_KEY=<YOUR CRASHLYTICS API KEY HERE>
+    cordova plugin add https://github.com/etabard/cordova-fabric-crashlytics-plugin --variable CRASHLYTICS_API_SECRET=<YOUR CRASHLYTICS API SECRET HERE> --variable CRASHLYTICS_API_KEY=<YOUR CRASHLYTICS API KEY HERE>
 
 
 ## Crashlytics
@@ -28,7 +28,7 @@ Plugins provides a `navigator.crashlytics` object with following methods :
 
 ### Supported platforms
 
-- Android
+- Android (WIP)
 - iOS
 
 ### AngularJS integration
