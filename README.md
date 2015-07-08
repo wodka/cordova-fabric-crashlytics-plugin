@@ -28,7 +28,7 @@ Plugins provides a `navigator.crashlytics` object with following methods :
 
 ### Supported platforms
 
-- Android (WIP)
+- Android
 - iOS
 
 ### AngularJS integration
