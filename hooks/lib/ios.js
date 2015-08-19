@@ -5,7 +5,7 @@ var common = require('./common');
 
 module.exports = {
     addShellScriptBuildPhase: function(context, xcodeProjectPath) {
-        var pluginConfig = common.getPluginConfig('android');
+        var pluginConfig = common.getPluginConfig('ios');
 
         return this._editXcodeProject(context, xcodeProjectPath, function(xcodeProject, callback) {
             var id = xcodeProject.generateUuid();
