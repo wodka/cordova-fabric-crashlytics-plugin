@@ -5,7 +5,7 @@ client API.
 
 ## Installation
 
-    cordova plugin add https://github.com/etabard/cordova-fabric-crashlytics-plugin --variable CRASHLYTICS_API_SECRET=<YOUR CRASHLYTICS API SECRET HERE> --variable CRASHLYTICS_API_KEY=<YOUR CRASHLYTICS API KEY HERE>
+    cordova plugin add https://github.com/vianneyniji/cordova-fabric-crashlytics-plugin --variable CRASHLYTICS_API_SECRET=<YOUR CRASHLYTICS API SECRET HERE> --variable CRASHLYTICS_API_KEY=<YOUR CRASHLYTICS API KEY HERE>
 
 
 ## Crashlytics
@@ -46,7 +46,7 @@ Use the following snippet to integrate the plugin in your AngularJS app graceful
                 var message = exception.toString();
                 // Here, I rely on stacktrace-js (http://www.stacktracejs.com/) to format exception stacktraces before
                 // sending it to the native bridge
-                var stacktrace = $window.printStackTrace({e: exception});
+                var stacktrace = exception.stack.toLocaleString();
                 navigator.crashlytics.logException("ERROR: "+message+", stacktrace: "+stacktrace);
             };
         }]);
