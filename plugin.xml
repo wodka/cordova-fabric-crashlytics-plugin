@@ -81,7 +81,6 @@
         <source-file src="src/ios/CrashlyticsPlugin.m" />
 
         <framework src="libc++.dylib" />
-        <framework src="libz.dylib" />
         <framework src="libs/ios/Fabric.framework" custom="true" />
         <framework src="libs/ios/Crashlytics.framework" custom="true" />
 
