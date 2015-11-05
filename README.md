@@ -11,7 +11,7 @@ client API.
 ## Crashlytics
 
 Plugins provides a `navigator.crashlytics` object with following methods :
-- logException(string) : Sends an exception (non fatal) to the Crashlytics backend
+- logException(string) : Sends an exception (non fatal) to the Crashlytics backend (Android only)
 - log(string) : Sends a standard log message (non fatal) to the Crashlytics backend
 - log(errorLevel, tag, msg) (Android only)
 - setApplicationInstallationIdentifier(appInstId) (Android only)
@@ -24,6 +24,7 @@ Plugins provides a `navigator.crashlytics` object with following methods :
 - setUserEmail(email)
 - setUserIdentifier(userId)
 - setUserName(userName)
+- simulateCrash(): Simulates a crash
 
 
 ### Supported platforms
