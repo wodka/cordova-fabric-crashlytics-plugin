@@ -17,7 +17,7 @@
 - (void)pluginInitialize {
     [super pluginInitialize];
 
-    [Fabric with:@[CrashlyticsKit]];
+    [Fabric with:@[Crashlytics.class]];
 
     self.crashlytics = [Crashlytics sharedInstance];
 }
