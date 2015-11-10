@@ -46,7 +46,10 @@ module.exports = {
                 if (shellScriptBuildPhaseId.indexOf('_comment') !== -1) {
                     deleteShellScriptBuildPhaseId = (xcodeProject.hash.project.objects.PBXShellScriptBuildPhase[shellScriptBuildPhaseId] === this._comment);
                 } else {
-                    deleteShellScriptBuildPhaseId = (xcodeProject.hash.project.objects.PBXShellScriptBuildPhase[shellScriptBuildPhaseId].name.indexOf(this._comment) !== -1);
+                    if (xcodeProject.hash.project.objects.PBXShellScriptBuildPhase[shellScriptBuildPhaseId].name === undefined) {
+                    } else {
+                        deleteShellScriptBuildPhaseId = (xcodeProject.hash.project.objects.PBXShellScriptBuildPhase[shellScriptBuildPhaseId].name.indexOf(this._comment) !== -1);
+                    }
                 }
 
                 if (deleteShellScriptBuildPhaseId) {
