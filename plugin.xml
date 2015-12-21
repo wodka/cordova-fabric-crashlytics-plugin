@@ -60,8 +60,6 @@
             <import file="./crashlytics_build.xml"/>
         </config-file>
 
-        <source-file src="libs/android/crashlytics.jar" target-dir="libs" />
-
         <source-file src="src/android/org/apache/cordova/crashlytics/CrashlyticsPlugin.java" target-dir="src/org/apache/cordova/crashlytics" />
         <source-file src="libs/android/crashlytics_build.xml" target-dir="./"/>
         <source-file src="libs/android/crashlytics_build_base.xml" target-dir="./"/>

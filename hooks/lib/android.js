@@ -31,14 +31,22 @@ module.exports = {
                         '// CRASHLYTICS PLUGIN EXTRAS START\n' +
                         'buildscript {\n' +
                         '    repositories {\n' +
-                        '        maven { url \'http://download.crashlytics.com/maven\' }\n' +
+                        '        maven { url \'https://maven.fabric.io/public\' }\n' +
                         '    }\n' +
                         '    dependencies {\n' +
-                        '        classpath \'com.crashlytics.tools.gradle:crashlytics-gradle:1.+\'\n' +
+                        '        classpath \'io.fabric.tools:gradle:1.+\'\n' +
                         '    }\n' +
                         '}\n' +
                         '\n' +
-                        'apply plugin: \'crashlytics\'\n' +
+                        'apply plugin: \'io.fabric\'\n' +
+                        'repositories {\n' +
+                        '    maven { url \'https://maven.fabric.io/public\' }\n' +
+                        '}\n' +
+                        'dependencies {\n' +
+                        '    compile(\'com.crashlytics.sdk.android:crashlytics:2.5.5@aar\') {\n' +
+                        '        transitive = true\n' +
+                        '    }\n' +
+                        '}\n' +
                         '// CRASHLYTICS PLUGIN EXTRAS END\n';
 
         this._writeBuildGradle(buildGradle);

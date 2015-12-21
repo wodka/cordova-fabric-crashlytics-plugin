@@ -1,7 +1,9 @@
 package org.apache.cordova.crashlytics;
 
 import android.content.Context;
+import android.app.Activity;
 
+import io.fabric.sdk.android.Fabric;
 import com.crashlytics.android.Crashlytics;
 
 import org.apache.cordova.CallbackContext;
@@ -15,10 +17,22 @@ import javax.security.auth.callback.Callback;
 
 public class CrashlyticsPlugin extends CordovaPlugin {
 
+    private Activity getActivity() {
+        return (Activity)this.webView.getContext();
+    }
+
+    /**
+     * Gets the application context from cordova's main activity.
+     * @return the application context
+     */
+    private Context getApplicationContext() {
+        return this.getActivity().getApplicationContext();
+    }
+
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-        Crashlytics.start(cordova.getActivity());
+        Fabric.with(this.getApplicationContext(), new Crashlytics());
     }
 
     private static enum BridgedMethods {
@@ -41,7 +55,7 @@ public class CrashlyticsPlugin extends CordovaPlugin {
         setApplicationInstallationIdentifier(1){
             @Override
             public void call(JSONArray args) throws JSONException {
-                Crashlytics.setApplicationInstallationIdentifier(args.getString(0));
+                Crashlytics.setUserIdentifier(args.getString(0));
             }
         },
         setBool(2){
