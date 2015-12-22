@@ -1,7 +1,6 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-
-
+#import <Crashlytics/Answers.h>
 #import "CrashlyticsPlugin.h"
 
 @interface CrashlyticsPlugin ()
@@ -101,6 +100,22 @@
 - (void)resultOK:(CDVInvokedUrlCommand *)command {
     CDVPluginResult* res = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:res callbackId:command.callbackId];
+}
+
+-(void)logEvent:(CDVInvokedUrlCommand *)command {
+    NSString *event = nil;
+    if(command.arguments.count > 0 && command.arguments[0]) event = command.arguments[0];
+    NSDictionary *attrs = nil;
+    if(command.arguments.count > 1 && command.arguments[1]) attrs = command.arguments[1];
+    if(event && attrs)
+        [Answers logCustomEventWithName:event customAttributes:attrs];
+    else if(event)
+        [Answers logCustomEventWithName:event customAttributes:nil];
+    else {
+        [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR] callbackId:command.callbackId];
+        return;
+    }
+    [self resultOK:command];
 }
 
 @end
