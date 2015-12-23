@@ -2,9 +2,12 @@ package org.apache.cordova.crashlytics;
 
 import android.content.Context;
 import android.app.Activity;
+import java.util.Iterator;
 
 import io.fabric.sdk.android.Fabric;
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -32,7 +35,7 @@ public class CrashlyticsPlugin extends CordovaPlugin {
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-        Fabric.with(this.getApplicationContext(), new Crashlytics());
+        Fabric.with(this.getApplicationContext(), new Crashlytics(), new Answers());
     }
 
     private static enum BridgedMethods {
@@ -117,6 +120,19 @@ public class CrashlyticsPlugin extends CordovaPlugin {
             public void call(JSONArray args) throws JSONException {
                 String message = args.length() == 0 ? "This is a crash":args.getString(0);
                 throw new RuntimeException(message);
+            }
+        },
+        logEvent(2){
+            @Override public void call(JSONArray args) throws JSONException {
+                CustomEvent event = new CustomEvent(args.getString(0));
+                if(args.length() > 1) {
+                    for(Iterator<String> it = args.getJSONObject(1).keys(); it.hasNext();) {
+                        String key = it.next();
+                        String val = args.getJSONObject(1).getString(key);
+                        event.putCustomAttribute(key, val);
+                    }
+                }
+                Answers.getInstance().logCustom(event);
             }
         };
 
