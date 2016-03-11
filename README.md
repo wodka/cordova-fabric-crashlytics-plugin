@@ -5,6 +5,12 @@ client API.
 
 ## Installation
 
+    This Plugin has a dependency on the java stacktracejs library:
+
+    bower install stacktrace-js
+    bower install stackframe
+    bower install error-stack-parser
+
     cordova plugin add https://github.com/vianneyniji/cordova-fabric-crashlytics-plugin --variable CRASHLYTICS_API_SECRET=<YOUR CRASHLYTICS API SECRET HERE> --variable CRASHLYTICS_API_KEY=<YOUR CRASHLYTICS API KEY HERE>
 
 
