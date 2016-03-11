@@ -2,6 +2,8 @@ package org.apache.cordova.crashlytics;
 
 import android.content.Context;
 import android.app.Activity;
+
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import io.fabric.sdk.android.Fabric;
@@ -15,7 +17,6 @@ import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaWebView;
 import org.json.JSONArray;
 import org.json.JSONException;
-import sun.org.mozilla.javascript.internal.JavaScriptException;
 
 import javax.security.auth.callback.Callback;
 
@@ -43,29 +44,27 @@ public class CrashlyticsPlugin extends CordovaPlugin {
         logException(1){
             @Override
             public void call(JSONArray args) throws JSONException {
-//                String stackTraceString = args.getString(0).substring(args.getString(0).indexOf("stacktrace") + 1);
-//
-//                if(stackTraceString.isEmpty()) {
-//                    return;
-//                }
-//
-//                StackTraceElement ste = new StackTraceElement()
-//
-//
-//                StackTraceElement[] trace = new StackTraceElement[] {
-//                        new StackTraceElement("ClassName","methodName","fileName",10),
-//                        new StackTraceElement("ClassName","methodName","fileName",11),
-//                        new StackTraceElement("ClassName","methodName","fileName",12)
-//                };
-//
-//                // sets the stack trace elements
-//                RuntimeException e = new RuntimeException("broken");
-//                e.setStackTrace(trace);
-//
-//                //javascriptexception
-//                JavaScriptException e = new JavaScriptException();
+				
+				if(args.length == 2) {
+                    JSONArray stackTrace = args.getJSONArray(1);
+					
+					ArrayList<StackTraceElement> trace = new ArrayList<StackTraceElement>();
+					
+					
+					
+					for(int i = 0; i < stackTrace.length(); i++) {
+						JSONObject elem = stackTrace.getJSONObject (i);
+						
+						trace.add(new StackTraceElement("undefined", elem.get("functionName"),elem.get("fileName"), elem.get("lineNumber")));
+					}
 
-                Crashlytics.logException(new JavaScriptException(args.getString(0)));
+                    JavaScriptException ex = new JavaScriptException(args.getString(0));
+                    ex.setStackTrace((StackTraceElement[])trace.toArray());
+                    Crashlytics.logException(ex);
+					
+				} else {
+					Crashlytics.logException(new JavaScriptException(args.getString(0)));
+				}
             }
         },
         log(1){

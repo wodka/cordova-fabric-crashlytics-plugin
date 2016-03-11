@@ -5,7 +5,7 @@ var exec = require('cordova/exec');
 var Crashlytics = function(){
 
     var methods = [
-        'logException', 'log', 'setApplicationInstallationIdentifier',
+        'log', 'setApplicationInstallationIdentifier',
         'setBool', 'setDouble', 'setFloat', 'setInt', 'setLong', 'setString', 'setUserEmail',
         'setUserIdentifier', 'setUserName', 'simulateCrash', 'logEvent'
     ];
@@ -30,6 +30,17 @@ var Crashlytics = function(){
             };
         })(i);
     }
+	
+	this.logException = function(error) {
+		
+		if(error instanceof Error) {
+			var parsed = ErrorStackParse.parse(error);
+			execCall(null, null, "Crashlytics", "logException", [error.message, parsed]);
+		} else {
+			execCall(null, null, "Crashlytics", "logException", [error]);
+		}
+		
+	}
 
     this.LOG_LEVELS = {
         VERBOSE: 2,
